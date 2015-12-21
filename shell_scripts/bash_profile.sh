@@ -7,3 +7,4 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 alias j="cd .."
 alias p="pwd"
 alias l="ls -alGF"
+alias grep="grep --color=auto"
