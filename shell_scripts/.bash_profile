@@ -20,7 +20,7 @@ alias j="cd .."
 alias p="pwd"
 alias grep="grep --color=auto"
 alias l="ls -alGF"                           # colorized ls output listing all files and directories
-alias ld="ls -ld *"                          # listing only directories under the current directory
+alias ld="ls -al | grep ^d"                  # listing only directories under the current directory
 alias lf="ls -alp | grep -v /"               # listing only files and excluding directories
 alias la="ls -ld .[^.]*"                     # listing only "hidden" files beginning with "." (dot)
 alias lsize="ls -asF | grep -v / | sort -rn" # list files in a dir by size and sort the output; not recursive
