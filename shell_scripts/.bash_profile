@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+# Source separate aliases file if it exists
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
 export PATH=$PATH:~/bin
 export CLICOLOR=1                            # telling mac osx to colorize the terminal
 export LSCOLORS=GxFxCxDxBxegedabagaced       # specifying color scheme for the ls command
@@ -15,11 +25,6 @@ alias lf="ls -alp | grep -v /"               # listing only files and excluding 
 alias la="ls -ld .[^.]*"                     # listing only "hidden" files beginning with "." (dot)
 alias lsize="ls -asF | grep -v / | sort -rn" # list files in a dir by size and sort the output; not recursive
 alias skim="(head -5; tail -5) <"            # display and head and tail of a file
-
-# source separate aliases file if it exists
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
 
 # source separate functions file if it exists
 if [ -f ~/.bash_functions ]; then
