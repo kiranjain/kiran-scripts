@@ -1,18 +1,25 @@
 #!/bin/bash
 
-tmpfile=$(mktemp ~/tmp/meeting.XXXXXXX)
-dt=$(date +'%Y-%m-%d')
+tmpfile=$(mktemp ~/tmp/meeting.XXXXXXX)         # we make a temp file using mktemp and we assign the file reference to a variable
+dt=$(date +'%Y-%m-%d, %a')                      # generate a formatted date string and assign to a variable
+dts=$(date +'%Y-%m-%d')                         # generate another formatted date string (shorter) and assign to a variable
 
-echo -n "Enter title: "
+printf '%s' "Enter title: "                     # printf is better than "echo";  using printf without \n keeps cursor on the same line
 read title
-title=$(echo $title | sed 's/mtg:/*MEETING:*/')
-echo "### ($dt) $title" >> $tmpfile
+printf '%s\n' "### **($dt) $title**" >> $tmpfile  # another use of printf;  first argument to printf is the formatting template
 
-echo -n "Enter meeting item: "
-read meeting_item
-meeting_item=$(echo $meeting_item | sed 's/ai:/*AI:*/')
+# use of until-do loop and case statement to keep recording items until user enters "0"
+meeting_item=
+until [ "$meeting_item" = "0" ]; do
+    clear
+    cat $tmpfile
+    printf '%s' "Journal in progress.  Enter item (0 to end): "
+    read meeting_item
+    case $meeting_item in
+        0 ) printf '%s\n' "--------------------------------" >> $tmpfile; clear; printf '%s\n' "NOTES"; cat $tmpfile ;;
+        * ) printf '%s\n' "+ $(echo  $meeting_item | sed "s/^ai/*AI:* ($dts)/")" >> $tmpfile ;
+    esac
+done
 
-echo "+ $meeting_item" >> $tmpfile
-
+# hack to pre-pend meeting notes from tmpfile to the top of the journal.markdown file
 cat $tmpfile | cat - ~/journal/journal.markdown > temp && mv temp ~/journal/journal.markdown
-
