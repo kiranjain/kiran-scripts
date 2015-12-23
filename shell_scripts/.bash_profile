@@ -25,6 +25,7 @@ alias lf="ls -alp | grep -v /"               # listing only files and excluding 
 alias la="ls -ld .[^.]*"                     # listing only "hidden" files beginning with "." (dot)
 alias lsize="ls -asF | grep -v / | sort -rn" # list files in a dir by size and sort the output; not recursive
 alias skim="(head -5; tail -5) <"            # display and head and tail of a file
+alias jrnl="~/kiran-scripts/shell_scripts/journal_notes/jrnl" # alias to invoke the journal note taking shell script
 
 # source separate functions file if it exists
 if [ -f ~/.bash_functions ]; then
